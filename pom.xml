@@ -10,7 +10,7 @@
 	</parent>
 	<groupId>com.nttdata.ta</groupId>
 	<artifactId>todo</artifactId>
-	<version>0.0.2-SNAPSHOT</version>
+	<version>0.0.1-SNAPSHOT</version>
 	<packaging>war</packaging>
 	<name>todo</name>
 	<description>Demo To do list</description>
