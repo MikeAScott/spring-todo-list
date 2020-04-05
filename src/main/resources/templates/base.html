@@ -1,0 +1,46 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head th:fragment="head(title)">
+  <title th:replace="${title}">Spring MySQL Todo Sample</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+
+  <!-- Bootstrap -->
+  <!-- Latest compiled and minified CSS -->
+  <link rel="stylesheet" 
+    href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css"
+    integrity="sha384-HSMxcRTRxnN+Bdg0JdbxYKrThecOKuH5zCYotlSAcp1+c8xmyTe9GYg1l9a69psu" 
+    crossorigin="anonymous">
+
+</head>
+
+<body style="padding-top:50px;" th:fragment="body(heading, content)">
+  <!-- Nav Bar -->
+
+  <div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+    <div class="container">
+      <div class="navbar-header">
+        <a class="navbar-brand" href="#">Tasks</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Body -->
+  <div class="container">
+    <h1 th:replace="${heading}">Page Heading</h1>
+
+    <hr />
+
+    <th:block th:replace="${content}" />
+
+  </div>
+  <!-- Placed at the end of the document so the pages load faster -->
+  <!-- Latest compiled and minified JavaScript -->
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"
+    integrity="sha384-aJ21OjlMXNL5UyIl/XNwTMqvzeRMZH2w8c5cRVpzpU8Y5bApTppSuUkhZXN0VxHd" 
+    crossorigin="anonymous">
+    </script>
+
+</body>
+
+</html>

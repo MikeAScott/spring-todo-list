@@ -1,61 +1,42 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org">
-<head>
-    <title>Spring MySQL Todo Sample</title>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 
-    <!-- Bootstrap -->
-    <!-- Latest compiled and minified CSS -->
-    <link rel="stylesheet" 
-          href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css" 
-          integrity="sha384-HSMxcRTRxnN+Bdg0JdbxYKrThecOKuH5zCYotlSAcp1+c8xmyTe9GYg1l9a69psu" 
-          crossorigin="anonymous">
-
-
-
+<head th:replace="base :: head(~{::title})">
+  <title>MySQL Todo Sample</title>
 </head>
-<body style="padding-top:50px;">
- <!-- Nav Bar -->
 
-  <div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
-    <div class="container">
-      <div class="navbar-header">
-        <a class="navbar-brand" href="#">My Tasks</a>
-      </div>
-    </div>
-  </div>
+<body th:replace="base :: body(~{::h1}, ~{::section})">
+  <h1>ToDo List</h1>
 
-<!-- Body -->
-  <div class="container">
-    <h1>My ToDo List</h1>
-
-    <hr/>
-
-  <div class = "todoList">
-    <form class="form-horizontal" role="form" th:action="@{/update}" th:object="${items}" method="POST">
-      <table class="table table-bordered table-striped" id="todoItems">
-        <thead>
-          <tr>
-            <th>Name</th>
-            <th>Category</th>
-            <th>Complete</th>
-          </tr>
-        </thead>
-        <tbody>
-            <tr th:each="item,i : *{todoList}" th:class="${item.complete}? active : warning" >
-                <input type="hidden" th:field="*{todoList[__${i.index}__].id}"/>
-                <td th:text="${item.name}">Item_name</td><input type="hidden" th:field="*{todoList[__${i.index}__].name}"/>
-                <td th:text="${item.category}">item_category</td><input type="hidden" th:field="*{todoList[__${i.index}__].category}"/>
-                <td><input type="checkbox" th:checked="${item.complete} == true" th:field="*{todoList[__${i.index}__].complete}"/></td>
+  <section>
+    <div class="todoList">
+      <form class="form-horizontal" role="form" th:action="@{/update}" th:object="${items}" method="POST">
+        <table class="table table-bordered table-striped" id="todoItems">
+          <thead>
+            <tr>
+              <th>Name</th>
+              <th>Category</th>
+              <th>Complete</th>
             </tr>
-        </tbody>
-      </table>
-       <!-- Update Button -->
-          <button type="submit" class="btn btn-primary">Update Tasks</button>
-        </form>
+          </thead>
+          <tbody>
+            <tr th:each="item,i : *{todoList}" th:class="${item.complete}? active : warning">
+              <input type="hidden" th:field="*{todoList[__${i.index}__].id}" />
+              <td th:text="${item.name}">Item_name</td><input type="hidden"
+                th:field="*{todoList[__${i.index}__].name}" />
+              <td th:text="${item.category}">item_category</td><input type="hidden"
+                th:field="*{todoList[__${i.index}__].category}" />
+              <td><input type="checkbox" th:checked="${item.complete} == true"
+                  th:field="*{todoList[__${i.index}__].complete}" /></td>
+            </tr>
+          </tbody>
+        </table>
+        <!-- Update Button -->
+        <button type="submit" class="btn btn-primary">Update Tasks</button>
+      </form>
     </div>
 
-    <hr/>
+    <hr />
 
     <!-- Item Input Form -->
     <div class="todoForm">
@@ -63,14 +44,15 @@
         <div class="form-group">
           <label for="inputItemName" class="col-sm-2">Task Name</label>
           <div class="col-sm-10">
-            <input type="text" th:field="*{name}" class="form-control" id="inputItemName" placeholder="Enter name"/>
+            <input type="text" th:field="*{name}" class="form-control" id="inputItemName" placeholder="Enter name" />
           </div>
         </div>
 
         <div class="form-group">
           <label for="inputItemCategory" class="col-sm-2">Task Category</label>
           <div class="col-sm-10">
-            <input type="text" th:field="*{category}" class="form-control" id="inputItemCategory" placeholder="Enter category"/>
+            <input type="text" th:field="*{category}" class="form-control" id="inputItemCategory"
+              placeholder="Enter category" />
           </div>
         </div>
 
@@ -78,16 +60,8 @@
 
       </form>
     </div>
-
-  </div>
-
-  <!-- Placed at the end of the document so the pages load faster -->
-  <!-- Latest compiled and minified JavaScript -->
-  <script src="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js" 
-          integrity="sha384-aJ21OjlMXNL5UyIl/XNwTMqvzeRMZH2w8c5cRVpzpU8Y5bApTppSuUkhZXN0VxHd" 
-          crossorigin="anonymous">
-  </script>
-
+  </section>
 
 </body>
+
 </html>
