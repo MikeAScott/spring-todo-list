@@ -15,6 +15,8 @@ To build and run the sample from a fresh clone of this repo:
 
 ## Build and run the sample
 
+N.B. This needs the Java 11 JDK - It has been tested with the OpenJDK v11.0.6
+
 1. `mvnw package`
 3. `java -jar target/TodoDemo-0.0.1-SNAPSHOT.jar`
 3. Open a web browser to http://localhost:8080
