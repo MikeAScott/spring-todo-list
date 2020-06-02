@@ -23,3 +23,5 @@ N.B. This needs the Java 11 JDK - It has been tested with the OpenJDK v11.0.6
 
 As you add and update tasks in the app you can verify the changes in the database through the MySQL console using simple statements like 
 `select * from todo_item`.
+
+Change to Readme
