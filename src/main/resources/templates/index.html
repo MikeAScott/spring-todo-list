@@ -1,67 +1,85 @@
 <!DOCTYPE HTML>
-<html xmlns:th="http://www.thymeleaf.org">
-
-<head th:replace="base :: head(~{::title})">
-  <title>MySQL Todo Sample</title>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0" name="viewport">
+    <meta content="ie=edge" http-equiv="X-UA-Compatible">
+    <meta th:content="${_csrf.token}" th:name="_csrf"/>
+    <meta th:content="${_csrf.headerName}" th:name="_csrf_header"/>
+    <link crossorigin="anonymous" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
+          integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" rel="stylesheet">
+    <title>Spring Todo List</title>
 </head>
-
-<body th:replace="base :: body(~{::h1}, ~{::section})">
-  <h1>ToDo List</h1>
-
-  <section>
-    <div class="todoList">
-      <form class="form-horizontal" role="form" th:action="@{/update}" th:object="${items}" method="POST">
+<body class="container">
+<h1>Spring Todo List</h1>
+<div class="todoForm">
+    <form class="form-horizontal" method="POST" role="form" th:action="@{/add}" th:object="${newItem}">
+        <div class="row">
+            <div class="col">
+                <input class="form-control" id="inputItemTitle" placeholder="Title" th:field="*{title}" type="text">
+                <textarea class="form-control" id="inputItemDescription" placeholder="Description"
+                          th:field="*{description}"></textarea>
+            </div>
+            <div class="col">
+                <button class="btn btn-primary" type="submit">Add Task</button>
+            </div>
+        </div>
+    </form>
+</div>
+<hr/>
+<div class="todoList">
+    <form class="form-horizontal" method="POST" role="form" th:action="@{/update}" th:object="${items}">
+        <button class="btn btn-primary" type="submit">Update Tasks</button>
         <table class="table table-bordered table-striped" id="todoItems">
-          <thead>
+            <thead>
             <tr>
-              <th>Name</th>
-              <th>Category</th>
-              <th>Complete</th>
+                <th style="width: 20%; text-align: center">Title</th>
+                <th style="width: 60%; text-align: center">Description</th>
+                <th style="width: 10%; text-align: center">Done</th>
+                <th style="width: 10%; text-align: center">Delete</th>
             </tr>
-          </thead>
-          <tbody>
-            <tr th:each="item,i : *{todoList}" th:class="${item.complete}? active : warning">
-              <input type="hidden" th:field="*{todoList[__${i.index}__].id}" />
-              <td th:text="${item.name}">Item_name</td><input type="hidden"
-                th:field="*{todoList[__${i.index}__].name}" />
-              <td th:text="${item.category}">item_category</td><input type="hidden"
-                th:field="*{todoList[__${i.index}__].category}" />
-              <td><input type="checkbox" th:checked="${item.complete} == true"
-                  th:field="*{todoList[__${i.index}__].complete}" /></td>
+            </thead>
+            <tbody>
+            <tr th:class="${item.done}? 'active' : 'warning'" th:each="item, i : *{todoList}">
+                <input th:field="*{todoList[__${i.index}__].id}" type="hidden">
+                <td th:text="${item.title}">item_title</td>
+                <input th:field="*{todoList[__${i.index}__].title}" type="hidden">
+                <td th:text="${item.description}">item_description</td>
+                <input th:field="*{todoList[__${i.index}__].description}" type="hidden">
+                <td style="text-align: center; vertical-align: middle;">
+                    <input th:checked="${item.done}" th:field="*{todoList[__${i.index}__].done}" type="checkbox">
+                </td>
+                <td style="text-align: center; vertical-align: middle;">
+                    <input class="btn btn-danger btn-sm delete-button" type="button" value="Delete"/>
+                </td>
             </tr>
-          </tbody>
+            </tbody>
         </table>
-        <!-- Update Button -->
-        <button type="submit" class="btn btn-primary">Update Tasks</button>
-      </form>
-    </div>
-
-    <hr />
-
-    <!-- Item Input Form -->
-    <div class="todoForm">
-      <form class="form-horizontal" role="form" th:action="@{/add}" th:object="${newitem}" method="POST">
-        <div class="form-group">
-          <label for="inputItemName" class="col-sm-2">Task Name</label>
-          <div class="col-sm-10">
-            <input type="text" th:field="*{name}" class="form-control" id="inputItemName" placeholder="Enter name" />
-          </div>
-        </div>
-
-        <div class="form-group">
-          <label for="inputItemCategory" class="col-sm-2">Task Category</label>
-          <div class="col-sm-10">
-            <input type="text" th:field="*{category}" class="form-control" id="inputItemCategory"
-              placeholder="Enter category" />
-          </div>
-        </div>
-
-        <button type="submit" class="btn btn-primary">Add Task</button>
-
-      </form>
-    </div>
-  </section>
-
+    </form>
+</div>
+<script crossorigin="anonymous" src="https://code.jquery.com/jquery-3.7.0.js"></script>
+<script crossorigin="anonymous"
+        src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+    $(document).ready(function () {
+        $(".delete-button").click(function (event) {
+            event.preventDefault()
+            let id = $(this).closest("tr").find("input[type='hidden']").val()
+            let token = $("meta[name='_csrf']").attr("content")
+            let header = $("meta[name='_csrf_header']").attr("content")
+            $.ajax({
+                type: "POST",
+                url: "/delete",
+                data: {id: id},
+                beforeSend: function (xhr) {
+                    xhr.setRequestHeader(header, token)
+                },
+                success: function () {
+                    window.location.reload()
+                }
+            })
+        })
+    })
+</script>
 </body>
-
 </html>
