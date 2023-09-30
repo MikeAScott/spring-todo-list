@@ -10,7 +10,7 @@ import java.util.UUID;
 
 @RestController
 @AllArgsConstructor
-@RequestMapping("/api/todo")
+@RequestMapping("/todo")
 public class TodoControllerRest {
     private final TodoRepository todoRepository;
 

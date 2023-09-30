@@ -1,5 +1,6 @@
 package de.dummyapt.todo.config;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -7,17 +8,15 @@ import org.springframework.security.config.annotation.web.configurers.AbstractHt
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 
-import static org.springframework.security.config.Customizer.withDefaults;
-
 @Configuration
 public class SecurityConfig {
 
+    @Value("${oauth2.jwk-set-uri}")
+    private String jwkSetUri;
+
     @Bean
     public SecurityFilterChain defaultSecurityFilterChain(HttpSecurity http) throws Exception {
-        return http.csrf(AbstractHttpConfigurer::disable)
-                .authorizeHttpRequests(requests -> requests.anyRequest().authenticated())
-                .formLogin(withDefaults())
-                .httpBasic(withDefaults()).build();
+        return http.oauth2ResourceServer(resourceServerConfigurer -> resourceServerConfigurer.jwt(jwtConfigurer -> jwtConfigurer.jwkSetUri(jwkSetUri))).csrf(AbstractHttpConfigurer::disable).authorizeHttpRequests(requests -> requests.anyRequest().authenticated()).build();
     }
 
     @Bean
