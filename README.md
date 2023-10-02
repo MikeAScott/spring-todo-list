@@ -13,4 +13,5 @@ This is a simple REST API for a Todo List application. It uses Spring Boot, Spri
 _This project uses JDK 21_
 
 1. Run `mvn spring-boot:run` to start the application
-2. Import `collection.json` to Postman and run the requests to test the API
+2. Import `collection.json` into Postman
+3. Run the demo requests to test the API
