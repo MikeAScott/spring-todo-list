@@ -1,0 +1,231 @@
+{
+  "info": {
+    "_postman_id": "55b576bb-8671-4dd5-b30d-126d67c3679e",
+    "name": "Todo",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "25434155"
+  },
+  "item": [
+    {
+      "name": "Get access token",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "if (pm.response.code == 200) {\r",
+              "    let json = JSON.parse(responseBody)\r",
+              "    pm.collectionVariables.set(\"access_token\", json[\"access_token\"])\r",
+              "}\r",
+              ""
+            ],
+            "type": "text/javascript"
+          }
+        }
+      ],
+      "request": {
+        "auth": {
+          "type": "noauth"
+        },
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://127.0.0.1:8079/oauth2/token?grant_type=client_credentials&client_id=client&client_secret=secret&scope=openid",
+          "protocol": "http",
+          "host": [
+            "127",
+            "0",
+            "0",
+            "1"
+          ],
+          "port": "8079",
+          "path": [
+            "oauth2",
+            "token"
+          ],
+          "query": [
+            {
+              "key": "grant_type",
+              "value": "client_credentials"
+            },
+            {
+              "key": "client_id",
+              "value": "client"
+            },
+            {
+              "key": "client_secret",
+              "value": "secret"
+            },
+            {
+              "key": "scope",
+              "value": "openid"
+            }
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "All items",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{url}}/todo",
+          "host": [
+            "{{url}}"
+          ],
+          "path": [
+            "todo"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Create item",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n\t\"title\": \"Fourth todo\",\n\t\"description\": \"This is the fourth todo\"\n}\n",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{url}}/todo/add",
+          "host": [
+            "{{url}}"
+          ],
+          "path": [
+            "todo",
+            "add"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Edit item",
+      "request": {
+        "method": "PATCH",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n\t\"done\": true\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{url}}/todo/update?id=",
+          "host": [
+            "{{url}}"
+          ],
+          "path": [
+            "todo",
+            "update"
+          ],
+          "query": [
+            {
+              "key": "id",
+              "value": ""
+            }
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Delete item",
+      "request": {
+        "method": "DELETE",
+        "header": [],
+        "url": {
+          "raw": "{{url}}/todo/delete?id=",
+          "host": [
+            "{{url}}"
+          ],
+          "path": [
+            "todo",
+            "delete"
+          ],
+          "query": [
+            {
+              "key": "id",
+              "value": ""
+            }
+          ]
+        }
+      },
+      "response": []
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{access_token}}",
+        "type": "string"
+      }
+    ]
+  },
+  "event": [
+    {
+      "listen": "prerequest",
+      "script": {
+        "type": "text/javascript",
+        "exec": [
+          ""
+        ]
+      }
+    },
+    {
+      "listen": "test",
+      "script": {
+        "type": "text/javascript",
+        "exec": [
+          ""
+        ]
+      }
+    }
+  ],
+  "variable": [
+    {
+      "key": "url",
+      "value": "http://127.0.0.1:8080",
+      "type": "string"
+    },
+    {
+      "key": "username",
+      "value": "todo",
+      "type": "string"
+    },
+    {
+      "key": "password",
+      "value": "todo",
+      "type": "string"
+    },
+    {
+      "key": "access_token",
+      "value": "",
+      "type": "string"
+    }
+  ]
+}
