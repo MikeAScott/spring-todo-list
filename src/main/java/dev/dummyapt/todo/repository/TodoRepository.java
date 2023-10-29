@@ -1,6 +1,6 @@
-package de.dummyapt.todo.repository;
+package dev.dummyapt.todo.repository;
 
-import de.dummyapt.todo.domain.Todo;
+import dev.dummyapt.todo.domain.Todo;
 import org.springframework.data.repository.CrudRepository;
 
 import java.util.UUID;

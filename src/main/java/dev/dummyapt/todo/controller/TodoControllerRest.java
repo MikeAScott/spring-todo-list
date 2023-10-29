@@ -1,7 +1,7 @@
-package de.dummyapt.todo.controller;
+package dev.dummyapt.todo.controller;
 
-import de.dummyapt.todo.domain.Todo;
-import de.dummyapt.todo.repository.TodoRepository;
+import dev.dummyapt.todo.domain.Todo;
+import dev.dummyapt.todo.repository.TodoRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;

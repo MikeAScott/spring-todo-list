@@ -1,4 +1,4 @@
-package de.dummyapt.todo.config;
+package dev.dummyapt.todo.config;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;

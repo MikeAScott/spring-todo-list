@@ -10,7 +10,7 @@
         <relativePath/>
     </parent>
 
-    <groupId>de.dummyapt</groupId>
+    <groupId>dev.dummyapt</groupId>
     <artifactId>spring-todo-list</artifactId>
     <version>1.0</version>
     <name>spring-todo-list</name>
